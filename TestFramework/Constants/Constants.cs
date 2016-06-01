@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SiteFunctionalTests
+namespace TestFramework.Constants
 {
-    public class Class1
+    public class Constants
     {
     }
 }
