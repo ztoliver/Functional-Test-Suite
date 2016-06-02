@@ -4,5 +4,7 @@
     {
         void SetUp();
         void TearDown();
+        void SetUpTest();
+        void TearDownTest();
     }
 }
