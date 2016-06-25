@@ -97,7 +97,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessages = browser.FindAllCss(".failure-message").ToList();
-                Assert.That(failureMessages[0].Text.Contains("First name is required") ,"First name failure message not shown.");
+                Assert.That(!failureMessages[0].Text.Contains("First name is required") ,"First name failure message not shown.");
                 Assert.That(failureMessages[1].Text.Contains("Last name is required"));
                 Assert.That(failureMessages[2].Text.Contains("Email address is required"));
                 Assert.That(failureMessages[3].Text.Contains("Message content is required"));
