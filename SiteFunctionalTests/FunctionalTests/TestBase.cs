@@ -6,6 +6,8 @@ using Coypu.Drivers.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Configuration;
+using System.Linq;
+using NUnit.Framework.Interfaces;
 
 namespace SiteFunctionalTests.FunctionalTests
 {
@@ -14,26 +16,32 @@ namespace SiteFunctionalTests.FunctionalTests
         public BrowserSession Browser;
         public static string TestArtifacts;
         private static string _saveDirectory;
+        private static string _saveLocation;
+        private static string _htmlReport;
 
         public TestBase()
         {
             _saveDirectory = ConfigurationManager.AppSettings["ArtifactFilePath"];
+            var workingDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace(@"\bin\Debug", "");
+            var className = TestContext.CurrentContext.Test.ClassName.Split(Convert.ToChar(".")).Last();
+            _saveLocation = $"{workingDirectory}\\{className}";
+            _htmlReport = workingDirectory + "\\artifact-report.html";
         }
 
         [SetUp]
         public void SetUpTest()
         {
-            Debug.WriteLine("Test setup started");
+            Console.WriteLine("Starting test set up...");
         }
 
         [TearDown]
         public void TearDownTest()
         {
-            Debug.WriteLine("Test tearing down");
+            Console.WriteLine("Starting test tear down...");
             GenerateSuccessArtifacts();
         }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             Debug.WriteLine("Setting up test fixture...");
@@ -43,10 +51,10 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser = Coypu.Drivers.Browser.Chrome
             };
             Browser = new BrowserSession(sessionConfiguration);
-            Browser.MaximiseWindow();
+            Browser.MaximiseWindow();           
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             Debug.WriteLine("Tearing down test fixture...");
@@ -56,7 +64,7 @@ namespace SiteFunctionalTests.FunctionalTests
 
         private static void GenerateSuccessArtifacts()
         {
-            if (TestContext.CurrentContext.Result.Status == TestStatus.Passed && TestContext.CurrentContext.Result.State == TestState.Success)
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
             {
                 GeneratePassedArtifact();
             }
@@ -64,7 +72,7 @@ namespace SiteFunctionalTests.FunctionalTests
 
         private static void GenerateFailedArtifact(Exception ex, string screenshot)
         {
-            Debug.WriteLine("Creating failure artifact...");
+            Console.WriteLine("Creating test failure artifact...");
             var failedTemplate = "<li>" +
                                        $"<div class=\"collapsible-header test-header-failed red lighten-2 active\">{TestContext.CurrentContext.Test.Name}</div>" +
                                        "<div class=\"collapsible-body test-body-failed red lighten-3\">" +
@@ -73,15 +81,17 @@ namespace SiteFunctionalTests.FunctionalTests
                                        "</div>" +
                                   "</li>";
             TestArtifacts = TestArtifacts + failedTemplate;
+            Console.WriteLine("Test failure artifact created...");
         }
 
         private static void GeneratePassedArtifact()
         {
-            Debug.WriteLine("Creating success artifact...");
+            Console.WriteLine("Generating test success artifact...");
             var passedTemplate = "<li>" +
                                  $"<div class=\"collapsible-header green lighten-2 test-header-passed\">{TestContext.CurrentContext.Test.Name}</div>" +
                                  "</li>";
             TestArtifacts = TestArtifacts + passedTemplate;
+            Console.WriteLine("Test success artifact created...");
         }
 
         private static void GenerateIgnoredArtifact()
@@ -95,18 +105,31 @@ namespace SiteFunctionalTests.FunctionalTests
         private static void GenerateFullTestFixtureArtifact()
         {
             if (!Directory.Exists(_saveDirectory)) Directory.CreateDirectory(_saveDirectory);
-            var workingDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace(@"\bin\Debug", "");
-            var saveLocation = workingDirectory + "\\artifacts.html";
-            var htmlReport = workingDirectory + "\\artifact-report.html";
-            var html = File.ReadAllText(htmlReport).Replace("{0}", TestArtifacts);
-            File.WriteAllText(saveLocation, html);
+            var html = File.ReadAllText(_htmlReport).Replace("{0}", TestArtifacts);
+            try
+            {
+                if (Directory.Exists(_saveLocation))
+                {
+                    File.WriteAllText($"{_saveLocation}/artifacts.html", html);
+                }
+                else
+                {
+                    Directory.CreateDirectory(_saveLocation);
+                    File.WriteAllText($"{_saveLocation}/artifacts.html", html);
+                }
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error: Unable to save test fixture artifact");
+            }
         }
 
         protected void ExecuteBrowserTest(Action<BrowserSession> test)
         {
             try
             {
-                Debug.WriteLine("Executing test...");
+                Console.WriteLine("Executing test...");
                 test(Browser);
             }
             catch (Exception ex)
@@ -115,23 +138,23 @@ namespace SiteFunctionalTests.FunctionalTests
                 switch (ex.TargetSite.Name)
                 {
                     case "Inconclusive":
-                        Debug.WriteLine("Test was inconclusive!");
+                        Console.WriteLine("Test was inconclusive!");
                         GenerateIgnoredArtifact();
                         break;
                     case "Ignore":
-                        Debug.WriteLine("Test was ignored!");
+                        Console.WriteLine("Test was ignored!");
                         GenerateIgnoredArtifact();
                         break;
                     case "Success":
-                        Debug.WriteLine("Test passed!");
+                        Console.WriteLine("Test passed!");
                         GeneratePassedArtifact();
                         break;
                     case "Fail":
-                        Debug.WriteLine("Failure caught in browser test. Test will now tear down... \n" + ex);
+                        Console.WriteLine("Failure caught in browser test. Test will now tear down... \n" + ex);
                         GenerateFailedArtifact(ex, screenshot);
                         break;
                     default:
-                        Debug.WriteLine("Failure caught in browser test. Test will now tear down... \n" + ex);
+                        Console.WriteLine("Failure caught in browser test. Test will now tear down... \n" + ex);
                         GenerateFailedArtifact(ex, screenshot);
                         break;
                 }

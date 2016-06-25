@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestFramework.Constants
 {
-    public class Constants
+    public static class Constants
     {
+        public const string HomePage = "http://zacharytoliver.com/";
     }
 }
