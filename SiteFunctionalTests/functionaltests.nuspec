@@ -16,6 +16,7 @@
     </releaseNotes>
   </metadata>
   <files>
-    <file src="\bin\Debug\SiteFunctionalTests.dll" />
+    <file src="bin\Debug\*.dll" target="lib" />
+    <file src="bin\Debug\*.pdb" target="lib" />
   </files>
 </package>
