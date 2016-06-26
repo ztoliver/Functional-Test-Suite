@@ -19,4 +19,7 @@
     <file src="bin\Debug\*.dll" target="lib" />
     <file src="bin\Debug\*.pdb" target="lib" />
   </files>
+  <dependencies>
+    <dependency id="TestFramework" />
+  </dependencies>
 </package>
