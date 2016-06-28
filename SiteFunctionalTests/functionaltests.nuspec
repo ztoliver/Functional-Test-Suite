@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SiteFunctionalTests</id>
-    <version>$version$</version>
+    <version>1.0.0</version>
     <title>SiteFunctionalTests</title>
     <authors>Zachary Toliver</authors>
     <owners>Zachary Toliver</owners>
