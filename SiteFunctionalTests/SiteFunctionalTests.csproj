@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="SiteFunctionalTests.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFramework\TestFramework.csproj">
