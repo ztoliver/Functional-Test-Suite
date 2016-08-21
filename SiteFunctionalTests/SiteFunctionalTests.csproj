@@ -67,7 +67,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="functionaltests.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
