@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Coypu;
 using NUnit.Framework;
 using TestFramework.Pages;
@@ -32,10 +33,12 @@ namespace TestFramework.Extensions
 
         public static BrowserSession FillOutContactForm(this BrowserSession browser)
         {
-            browser.FindField("First Name").FillInWith("Zachary");
-            browser.FindField("Last Name").FillInWith("Toliver");
-            browser.FindField("Email").FillInWith("zt@itest.com");
-            browser.FindField("Message").FillInWith("This is a functional test run");
+            Parallel.Invoke(
+                () => { browser.FindField("First Name").FillInWith("Zachary"); },
+                () => { browser.FindField("Last Name").FillInWith("Toliver"); },
+                () => { browser.FindField("Email").FillInWith("zt@itest.com"); },
+                () => { browser.FindField("Message").FillInWith("This is a functional test run"); }
+            );
             return browser;
         }
 
@@ -44,7 +47,7 @@ namespace TestFramework.Extensions
             return browser.Location.AbsoluteUri;
         }
 
-        #region Click()
+        #region Click Extensions()
         public static BrowserSession ClickHeaderNameLink(this BrowserSession browser)
         {
             browser.FindCss(".brand-logo").Click();

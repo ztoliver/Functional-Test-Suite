@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading;
-using Coypu;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using TestFramework.Extensions;
 using TestFramework.Pages;
@@ -8,7 +8,7 @@ using TestFramework.Pages;
 namespace SiteFunctionalTests.FunctionalTests
 {
     [TestFixture]
-    public class UserAcceptanceTests : TestBase
+    public class ParallelTests : TestBase
     {
         [Test]
         public void Title_is_correct()
@@ -23,10 +23,13 @@ namespace SiteFunctionalTests.FunctionalTests
         [Test]
         public void Page_location_is_correct()
         {
-            ExecuteBrowserTest(browser =>
+            Parallel.For(1, 5, x =>
             {
-                Browser.GoToHomePage();
-                Assert.That(Browser.AbsoluteUri(), Is.EqualTo("http://zacharytoliver.com/"), "Page location is not correct");
+                ExecuteBrowserTest(browser =>
+                {
+                    Browser.GoToHomePage();
+                    Assert.That(Browser.AbsoluteUri(), Is.EqualTo("http://zacharytoliver.com/"), "Page location is not correct");
+                });
             });
         }
 
@@ -98,7 +101,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessages = browser.FindAllCss(".failure-message").ToList();
-                Assert.That(failureMessages[0].Text.Contains("First name is required") ,"First name failure message not shown.");
+                Assert.That(failureMessages[0].Text.Contains("First name is required"), "First name failure message not shown.");
                 Assert.That(failureMessages[1].Text.Contains("Last name is required"));
                 Assert.That(failureMessages[2].Text.Contains("Email address is required"));
                 Assert.That(failureMessages[3].Text.Contains("Message content is required"));

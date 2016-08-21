@@ -4,7 +4,7 @@ namespace TestFramework.Locators
 {
     public class CssLocator : ILocator
     {
-        public string Name => GetElementName();
+        public string Name { get; set; }
 
         public string Css { get; set; }
 
@@ -19,18 +19,19 @@ namespace TestFramework.Locators
         }
 
         ///<summary>
-        ///<para>Use an element class nameto create a page locator</para>
+        ///<para>Use an element class name to create a page locator</para>
         ///</summary>
         public CssLocator WithClassName(string className)
         {
             if (className.IsElementClassName()) { Css = className; return this; }
-            Css = $"#{className}";
+            Css = $".{className}";
             return this;
         }
 
-        private string GetElementName()
+        public CssLocator WithName(string name)
         {
-            return GetType().Name;
+            Name = name;
+            return this;
         }
     }
 }

@@ -18,5 +18,6 @@
   <files>
     <file src="bin\Debug\*.dll" target="lib" />
     <file src="bin\Debug\*.pdb" target="lib" />
+    <file src="bin\Debug\chrome*" target="lib" />
   </files>
 </package>

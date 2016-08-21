@@ -1,5 +1,6 @@
 ﻿using System;
 using Coypu;
+using Coypu.Timing;
 using OpenQA.Selenium;
 using TestFramework.Locators;
 using TestFramework.Pages;

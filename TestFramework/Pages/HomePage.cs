@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using TestFramework.Locators;
 
 namespace TestFramework.Pages
@@ -11,8 +10,8 @@ namespace TestFramework.Pages
         public string Url => ConfigurationManager.AppSettings["HomePageUrl"];
 
         //Page Locators
-        public CssLocator ContactForm => new CssLocator().WithId("contactform");
-        public CssLocator MainImage => new CssLocator().WithId("main-img");
-        public CssLocator TitleLink => new CssLocator().WithId("logo-container");       
+        public CssLocator ContactForm => new CssLocator().WithName("Contact Form").WithId("contactform");
+        public CssLocator MainImage => new CssLocator().WithName("Main Image").WithId("main-img");
+        public CssLocator TitleLink => new CssLocator().WithName("Title Link").WithId("logo-container");       
     }
 }
