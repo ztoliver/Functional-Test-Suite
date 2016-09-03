@@ -17,6 +17,5 @@
   </metadata>
   <files>
     <file src="bin\Debug\*.*" target="lib" />
-    <file src="bin\Debug\chromedriver.exe" target="lib" />
   </files>
 </package>
