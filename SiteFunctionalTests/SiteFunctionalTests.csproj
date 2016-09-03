@@ -71,9 +71,6 @@
     <None Include="packages.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="SiteFunctionalTests.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFramework\TestFramework.csproj">
