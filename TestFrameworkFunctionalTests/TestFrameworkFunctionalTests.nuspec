@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>SiteFunctionalTests</id>
+    <id>TestFrameworkFunctionalTests</id>
     <version>1.0.0</version>
-    <title>SiteFunctionalTests</title>
+    <title>TestFrameworkFunctionalTestss</title>
     <authors>Zachary Toliver</authors>
     <owners>Zachary Toliver</owners>
     <projectUrl>https://github.com/ztoliver/Functional-Test-Suite</projectUrl>
@@ -12,7 +12,7 @@
     <copyright>Copyright 2016 Zachary Toliver</copyright>
     <licenseUrl>https://github.com/ztoliver/Functional-Test-Suite/blob/master/LICENSE</licenseUrl>
     <releaseNotes>
-      In this version, references were removed from the nuspec file to address build issues.
+      Unit tests for test framework.
     </releaseNotes>
   </metadata>
   <files>
