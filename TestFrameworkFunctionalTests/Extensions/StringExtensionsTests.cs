@@ -10,7 +10,7 @@ namespace TestFrameworkFunctionalTests.Extensions
     {
         [Test]
         [Category("TestFramework")]
-        public static void IsElementClassName_valid_element_classname_returns_true()
+        public static void IsElementClassName_WhenInvokedWithValidClassName_ReturnsTrue()
         {
             //Arrange
             const string validClassName = ".classname";

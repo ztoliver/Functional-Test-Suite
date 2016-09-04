@@ -12,9 +12,7 @@ namespace TestFrameworkFunctionalTests
         public void fsdfdsf()
         {
             var x = A.Fake<ITestBase>();
-
             x.SetUpTest();
-
             A.CallTo(() => x.SetUpTest()).MustNotHaveHappened();
         }
     }
