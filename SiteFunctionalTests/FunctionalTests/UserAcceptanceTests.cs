@@ -39,7 +39,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser.FillOutContactForm();
                 Browser.ClickSubmitButton();
                 var contactForm = browser.Find<HomePage>(x => x.ContactForm);
-                Thread.Sleep(250);
+                Thread.Sleep(500);
                 Assert.That(contactForm.Text, Is.EqualTo("Thank you for your message! I will respond as soon as possible."));
             });
         }
