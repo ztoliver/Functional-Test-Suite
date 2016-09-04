@@ -1,5 +1,4 @@
 ﻿using System;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using TestFramework.Extensions;
@@ -10,6 +9,7 @@ namespace TestFrameworkFunctionalTests.Extensions
     public class StringExtensionsTests
     {
         [Test]
+        [Category("TestFramework")]
         public static void IsElementClassName_valid_element_classname_returns_true()
         {
             //Arrange
@@ -23,6 +23,7 @@ namespace TestFrameworkFunctionalTests.Extensions
         }
 
         [Test]
+        [Category("TestFramework")]
         public static void IsElementClassName_invalid_element_classnames_return_false()
         {
             //Arrange
@@ -39,6 +40,7 @@ namespace TestFrameworkFunctionalTests.Extensions
         }
 
         [Test]
+        [Category("TestFramework")]
         public static void IsElementId_valid_element_classname_returns_true()
         {
             //Arrange
@@ -52,6 +54,7 @@ namespace TestFrameworkFunctionalTests.Extensions
         }
 
         [Test]
+        [Category("TestFramework")]
         public static void IsElementId_invalid_element_classnames_return_false()
         {
             //Arrange
@@ -68,6 +71,7 @@ namespace TestFrameworkFunctionalTests.Extensions
         }
 
         [Test]
+        [Category("TestFramework")]
         public static void IsElementClassName_WhenClassNameIsNull_ThrowArgumentNullException()
         {
             //Arrange
@@ -81,6 +85,7 @@ namespace TestFrameworkFunctionalTests.Extensions
         }
 
         [Test]
+        [Category("TestFramework")]
         public static void IsElementId_WhenClassNameIsNull_ThrowArgumentNullException()
         {
             //Arrange
