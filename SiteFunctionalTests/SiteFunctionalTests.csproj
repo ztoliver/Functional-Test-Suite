@@ -76,12 +76,6 @@
     <None Include="SiteFunctionalTests.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestFramework\TestFramework.csproj">
-      <Project>{d0e47712-c239-40bc-a293-d4d983e31662}</Project>
-      <Name>TestFramework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="artifact-report.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

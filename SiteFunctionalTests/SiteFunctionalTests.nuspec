@@ -17,6 +17,7 @@
   </metadata>
   <files>
     <file src="bin\Debug\*.*" target="lib" />
-	<file src="bin\Debug\*.*.*" target="lib" />
+	  <file src="bin\Debug\*.*.*" target="lib" />
+    <file src="C:\Users\Zachary\Documents\Visual Studio 2015\Projects\SiteFunctionalTests\TestFrameworkFunctionalTests\bin\Debug\TestFrameworkFunctionalTests.dll" target="content" />
   </files>
 </package>
