@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading;
-using Coypu;
 using NUnit.Framework;
 using TestFramework.Extensions;
 using TestFramework.Pages;
