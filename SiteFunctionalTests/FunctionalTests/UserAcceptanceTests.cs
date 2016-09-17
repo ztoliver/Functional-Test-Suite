@@ -10,11 +10,13 @@ namespace SiteFunctionalTests.FunctionalTests
     public class UserAcceptanceTests : TestBase
     {
         [Test]
+        [Description("Browser title on Home (index) page is as expected.")]
         public void Title_is_correct()
         {
             ExecuteBrowserTest(browser =>
             {
                 browser.GoToHomePage();
+
                 Assert.That(browser.Title, Is.EqualTo("Zachary Toliver | Home"), "Page title is not correct");
             });
         }
@@ -25,7 +27,8 @@ namespace SiteFunctionalTests.FunctionalTests
             ExecuteBrowserTest(browser =>
             {
                 Browser.GoToHomePage();
-                Assert.That(Browser.AbsoluteUri(), Is.EqualTo("http://zacharytoliver.com/"), "Page location is not correct");
+
+                Assert.That(Browser.AbsoluteUri(), Is.EqualTo(new HomePage().Url), "Page location is not correct");
             });
         }
 
@@ -38,7 +41,8 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser.FillOutContactForm();
                 Browser.ClickSubmitButton();
                 var contactForm = browser.Find<HomePage>(x => x.ContactForm);
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
+
                 Assert.That(contactForm.Text, Is.EqualTo("Thank you for your message! I will respond as soon as possible."));
             });
         }
@@ -54,6 +58,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessage = Browser.FindCss(".failure-message");
+
                 Assert.That(failureMessage.Text, Is.EqualTo("First name is required."));
             });
         }
@@ -69,6 +74,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessage = Browser.FindCss(".failure-message");
+
                 Assert.That(failureMessage.Text, Is.EqualTo("Last name is required."));
             });
         }
@@ -84,6 +90,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 Browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessage = Browser.FindCss(".failure-message");
+
                 Assert.That(failureMessage.Text, Is.EqualTo("Email address is required."));
             });
         }
@@ -97,6 +104,7 @@ namespace SiteFunctionalTests.FunctionalTests
                 browser.ClickSubmitButton();
                 Thread.Sleep(1000);
                 var failureMessages = browser.FindAllCss(".failure-message").ToList();
+
                 Assert.That(failureMessages[0].Text.Contains("First name is required") ,"First name failure message not shown.");
                 Assert.That(failureMessages[1].Text.Contains("Last name is required"));
                 Assert.That(failureMessages[2].Text.Contains("Email address is required"));
@@ -120,7 +128,68 @@ namespace SiteFunctionalTests.FunctionalTests
             ExecuteBrowserTest(browser =>
             {
                 browser.GoToHomePage();
+
                 Assert.That(browser.Find<HomePage>(x => x.MainImage).Exists(), "Main image was not found");
+            });
+        }
+
+        [Test]
+        public void Github_header_link_navigates_to_Github_profile()
+        {
+            ExecuteBrowserTest(browser =>
+            {
+                browser.GoToHomePage();
+                browser.Find<HomePage>(x => x.GithubHeaderLink).Click();
+
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://github.com/ztoliver"));
+            });
+        }
+
+        [Test]
+        public void Twitter_header_link_navigates_to_Twitter_profile()
+        {
+            ExecuteBrowserTest(browser =>
+            {
+                browser.GoToHomePage();
+                browser.Find<HomePage>(x => x.TwitterHeaderLink).Click();
+
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://twitter.com/ZacharyToliver"));
+            });
+        }
+
+        [Test]
+        public void Facebook_header_link_navigates_to_Facebook_profile()
+        {
+            ExecuteBrowserTest(browser =>
+            {
+                browser.GoToHomePage();
+                browser.Find<HomePage>(x => x.FacebookHeaderLink).Click();
+
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://www.facebook.com/ZacharyTol"));
+            });
+        }
+
+        [Test]
+        public void GooglePlus_header_link_navigates_to_GooglePlus_profile()
+        {
+            ExecuteBrowserTest(browser =>
+            {
+                browser.GoToHomePage();
+                browser.Find<HomePage>(x => x.GooglePlusHeaderLink).Click();
+
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://plus.google.com/+ZacharyToliver"));
+            });
+        }
+
+        [Test]
+        public void LinkedIn_header_link_navigates_to_LinkedIn_profile()
+        {
+            ExecuteBrowserTest(browser =>
+            {
+                browser.GoToHomePage();
+                browser.Find<HomePage>(x => x.LinkedInHeaderLink).Click();
+
+                Assert.That(browser.Location.ToString(), Is.EqualTo("https://www.linkedin.com/in/zachary-toliver-8037b863"));
             });
         }
     }
