@@ -187,9 +187,9 @@ namespace SiteFunctionalTests.FunctionalTests
             ExecuteBrowserTest(browser =>
             {
                 browser.GoToHomePage();
-                browser.Find<HomePage>(x => x.LinkedInHeaderLink).Click();
+                var link = browser.Find<HomePage>(x => x.LinkedInHeaderLink)["href"];
 
-                Assert.That(browser.Location.ToString(), Is.EqualTo("https://www.linkedin.com/in/zachary-toliver-8037b863"));
+                Assert.That(link, Is.EqualTo("https://www.linkedin.com/pub/zachary-toliver/63/7b8/803"));
             });
         }
     }
